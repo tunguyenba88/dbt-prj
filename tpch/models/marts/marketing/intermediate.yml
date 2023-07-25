@@ -100,3 +100,20 @@ models:
         description: '{{ doc("available_quantity") }}'
       - name: cost
         description: '{{ doc("cost") }}'
+  - name: region_customers
+    description: Intermediate model where we join region, nation and customer.
+    columns: 
+      - name: customer_key  
+        description: primary key of the models
+        tests:
+          - unique
+          - not_null
+      - name: nation_key
+        description: foreign key for nation
+      - name: region_name
+        descciption: name of the region
+      - name: nation_name
+        description: name of the nation
+      - name: region_key
+        description: foreign key for region
+      

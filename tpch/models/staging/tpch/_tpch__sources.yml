@@ -3,6 +3,7 @@ version: 2
 
 sources:
   - name: tpch
+    description: '{{ doc("tpch_source") }}'
     database: raw
     schema: public
     freshness:
@@ -38,6 +39,7 @@ sources:
           - name: o_shippriority
             description: numeric representation of the shipping priority, zero being the default
           - name: o_comment
+            description: '{{ doc("comment") }}'
           
       - name: customer
         description: main customer table
@@ -64,6 +66,7 @@ sources:
           - name: c_mktsegment
             description: market segment of the customer
           - name: c_comment
+            description: '{{ doc("comment") }}'
 
       - name: lineitem
         description: main lineitem table
@@ -111,6 +114,7 @@ sources:
           - name: l_shipmode
             description: method of shipping
           - name: l_comment
+            description: '{{ doc("comment") }}'
 
       - name: nation
         description: nation mapping
@@ -130,6 +134,7 @@ sources:
                   to: source('tpch', 'region')
                   field: r_regionkey
           - name: n_comment
+            description: '{{ doc("comment") }}'
 
       - name: part
         description: main part table
@@ -158,6 +163,7 @@ sources:
                   min_value: 0
                   max_value: 2000
           - name: p_comment
+            description: '{{ doc("comment") }}'
 
       - name: partsupp
         description: main part supplier table
@@ -179,6 +185,7 @@ sources:
           - name: ps_supplycost
             description: raw cost 
           - name: ps_comment
+            description: '{{ doc("comment") }}'
 
       - name: region
         description: region mapping
@@ -195,6 +202,7 @@ sources:
               - accepted_values:
                   values: ['AFRICA', 'AMERICA', 'ASIA', 'EUROPE', 'MIDDLE EAST']
           - name: r_comment
+            description: '{{ doc("comment") }}'
 
       - name: supplier
         description: main supplier table
@@ -220,9 +228,10 @@ sources:
           - name: s_acctbal
             description: raw account balance
           - name: s_comment
+            description: '{{ doc("comment") }}'
 
   - name: tpch_snapshot
-    database: analytics
+    database: raw
     schema: dbt_mwinkler
     tables:
       - name: customer_snapshot_src
