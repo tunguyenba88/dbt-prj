@@ -1,6 +1,6 @@
 with region_customer as (
     
-    select * from {{ ref('region_customers') }}
+    select * from {{ ref('dim_customers') }}
 
 ),
 
