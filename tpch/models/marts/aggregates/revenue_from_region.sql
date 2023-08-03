@@ -6,7 +6,7 @@ with fct_region_order_items as (
 
 final as (
     select
-        fct_region_order_items.region_name, 
+        fct_region_order_items.region, 
         sum(fct_region_order_items.gross_item_sales_amount) as total_revenue
     from
         fct_region_order_items

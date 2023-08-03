@@ -30,8 +30,8 @@ final as (
     select 
         region_customer.region_key,
         region_customer.nation_key,
-        region_customer.region_name,
-        region_customer.nation_name,
+        region_customer.region,
+        region_customer.nation,
         region_customer.customer_key,
         order_item.order_key,
         order_item.gross_item_sales_amount,

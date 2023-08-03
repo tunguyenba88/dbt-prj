@@ -6,7 +6,7 @@ with region_customer as (
 
 final as (
     select
-        region_customer.region_name, 
+        region_customer.region, 
         count(region_customer.region_key) as count_customers
     from
         region_customer
