@@ -19,21 +19,20 @@
 
             -- Schema: {{ schema }}
 
-            {% set model_names = nodes | selectattr('database', '==', db) | selectattr('schema', '==', schema) | map(attribute='name') | map('upper') | join("', '") %}
+            {% set model_names = nodes | selectattr('database', '==', db) | selectattr('schema', '==', schema) | map(attribute='name') | join("', '") %}
 
             {% set find_tables_sql %}
-                USE DATABASE {{ db }};
                 SELECT DISTINCT TABLE_NAME, TABLE_TYPE
                 FROM INFORMATION_SCHEMA.TABLES
-                WHERE TABLE_SCHEMA = '{{ schema | upper }}'
+                WHERE TABLE_SCHEMA = '{{ schema }}'
                     AND TABLE_TYPE IN ('VIEW', 'BASE TABLE')
                     AND TABLE_NAME NOT IN ('{{ model_names }}');
             {% endset %}
             {% set tables_to_drop = run_query(find_tables_sql) %}
 
             {% for row in tables_to_drop %}
-                DROP {% if row[1] == 'BASE TABLE' %}TABLE{% else %}VIEW{% endif %} {{ db | upper }}.{{ schema | upper }}.{{ row[0] }};
-                {% do all_tables_to_drop.append('{}.{}.{}'.format(db.upper(), schema.upper(), row[0].upper())) %}
+                DROP {% if row[1] == 'BASE TABLE' %}TABLE{% else %}VIEW{% endif %} {{ db }}.{{ schema }}.{{ row[0] }};
+                {% do all_tables_to_drop.append('{}.{}.{}'.format(db, schema.upper(), row[0])) %}
             {% endfor %}
 
 

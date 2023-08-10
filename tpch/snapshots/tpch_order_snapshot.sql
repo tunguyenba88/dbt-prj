@@ -8,6 +8,6 @@
     updated_at='o_orderdate',
 )}}
 
-select * from {{ source('tpch', 'order') }}
+select * from {{ source('tpch', 'orders') }}
 
 {% endsnapshot %}
