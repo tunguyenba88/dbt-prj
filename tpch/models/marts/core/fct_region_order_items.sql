@@ -1,7 +1,6 @@
 {{
     config(
-        materialized = 'table',
-        tags=['finance']
+        materialized = 'incremental',
     )
 }}
 
@@ -33,6 +32,7 @@ final as (
         region_customer.region,
         region_customer.nation,
         region_customer.customer_key,
+        order_item.order_date,
         order_item.order_key,
         order_item.gross_item_sales_amount,
         order_item.item_discount_amount,
@@ -43,5 +43,13 @@ final as (
         inner join order_item
             on region_customer.customer_key = order_item.customer_key
 )
-select * from final
+select 
+* 
+from final
+
+{% if is_incremental() %}
+
+    where order_date > (select max(order_date) from {{ this }})
+
+{% endif %}
 

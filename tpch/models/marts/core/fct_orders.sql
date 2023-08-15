@@ -1,7 +1,6 @@
 {{
     config(
-        materialized = 'table',
-        tags=['finance']
+        materialized = 'incremental',
     )
 }}
 
@@ -53,6 +52,10 @@ select
     *
 from
     final
+{% if is_incremental() %}
 
+    where order_date > (select max(order_date) from {{ this }})
+
+{% endif %}
 order by
     order_date
